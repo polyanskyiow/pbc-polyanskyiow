@@ -11,4 +11,5 @@ def fib(n):
             a=b
             b=c
             print(c),
-fib(11)
+#Example
+# fib(11)
