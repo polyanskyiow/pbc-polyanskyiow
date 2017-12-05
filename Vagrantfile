@@ -28,7 +28,7 @@ Vagrant.configure("2") do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine and only allow access
   # via 127.0.0.1 to disable public access
-  # config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
+  config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -54,6 +54,16 @@ Vagrant.configure("2") do |config|
   #   vb.gui = true
   config.vm.provider "virtualbox" do |vb|
   vb.name = "polyanskyiow"
+  config.vm.provision "shell", inline: <<-SHELL
+     apt-get -y -q update
+     apt-get -y -q upgrade
+     apt-get -y -q install software-properties-common htop
+     add-apt-repository ppa:webupd8team/java
+     apt-get -y -q update
+     echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
+     apt-get -y -q install oracle-java8-installer
+     update-java-alternatives -s java-8-oracle
+  SHELL
   end
   #   # Customize the amount of memory on the VM:
   #   vb.memory = "1024"
