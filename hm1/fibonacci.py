@@ -1,6 +1,6 @@
 def fib(n):
     result = list()
-    if(type(n) is int):
+    if(type(n) is int and n>=0):
         a=0
         b=1
         for i in range(n):
@@ -14,8 +14,7 @@ def fib(n):
                 b=c
                 result.append(c)
     else:
-        print("n has invalid type, result list will be empty")
-
+        result = []
     return result
 
 #Example
