@@ -1,4 +1,4 @@
-def print_pairs(sum, *args):
+def print_pairs(*args):
     l=0
     m=l+1
     result = set()
@@ -13,4 +13,4 @@ def print_pairs(sum, *args):
     return result
 
 #Example
-# print(print_pairs(10, 2,7,5,3,1,5,9,8,1))
+# print(print_pairs(2,7,5,3,1,5,9,8,1))
