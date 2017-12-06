@@ -1,4 +1,4 @@
-from hm1.numbers_pairs import print_pairs
+from my_app_tests.numbers_pairs import print_pairs
 
 def test_output_type():
     assert type(print_pairs(10, 2,7,5,3,1,5,9,8,1)) is set

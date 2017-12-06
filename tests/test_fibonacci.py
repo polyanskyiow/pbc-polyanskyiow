@@ -1,4 +1,4 @@
-from hm1.fibonacci import fib
+from my_app_tests.fibonacci import fib
 
 def test_output_type():
     assert type(fib(7)) is list
