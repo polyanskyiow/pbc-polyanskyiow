@@ -1,3 +1,12 @@
+def decorator(func):
+    def wrapper(*args):
+        for a in args:
+            print 'arg: "{}"'.format(a)
+        rs = func(*args)
+        return rs
+    return wrapper
+
+@decorator
 def print_pairs(*args):
     l=0
     m=l+1

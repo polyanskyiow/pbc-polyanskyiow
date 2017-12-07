@@ -1,3 +1,12 @@
+def decorator(func):
+    def wrapper(*args):
+        for a in args:
+            print 'arg: "{}"'.format(a)
+        rs = func(*args)
+        return rs
+    return wrapper
+
+@decorator
 def fib(n):
     result = list()
     if(type(n) is int and n>=0):
