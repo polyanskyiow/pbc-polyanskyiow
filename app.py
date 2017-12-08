@@ -15,4 +15,4 @@ if __name__ == '__main__':
     if(args.fib):
         print( fib(args.number) )
     if (args.pairs):
-        print( print_pairs((args.arguments )))
+        print( print_pairs(*args.arguments))
