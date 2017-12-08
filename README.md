@@ -56,14 +56,14 @@ _____________________________________
 
 **Added `app.py` for launching  modules via CLI:**
 
-- Example of command for **fibonacci** module `python app.py --fib -n 8`.
+- Example of command for **fibonacci** module `python app.py fib -n 8`.
 Result:
   ```
    arg: "8"
    [0, 1, 1, 2, 3, 5, 8, 13]
     ```
 
-- Example of command for **numbers_pairs** module `python app.py --pairs -arg 2 7 5 3 1 5 9 8 1`.
+- Example of command for **numbers_pairs** module `python app.py print_pairs -arg 2 7 5 3 1 5 9 8 1`.
 Result:
   ```
    arg: "[2, 7, 5, 3, 1, 5, 9, 8, 1]"
