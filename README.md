@@ -66,8 +66,17 @@ Result:
 - Example of command for **numbers_pairs** module `python app.py print_pairs -arg 2 7 5 3 1 5 9 8 1`.
 Result:
   ```
-   arg: "[2, 7, 5, 3, 1, 5, 9, 8, 1]"
+   arg: "2"
+   arg: "7"
+   arg: "5"
+   arg: "3"
+   arg: "1"
+   arg: "5"
+   arg: "9"
+   arg: "8"
+   arg: "1"
    set([(2, 8), (5, 5), (1, 9), (3, 7)])
+
     ```
 
  
