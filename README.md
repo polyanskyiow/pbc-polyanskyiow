@@ -78,6 +78,14 @@ Result:
    set([(2, 8), (5, 5), (1, 9), (3, 7)])
 
     ```
-
+ ##  **hm5 - Home work 5**
  
+ **Added `ssh_module.py` for launching Selenium grid with node, via ssh, on vagrant VM:**
  
+ To run selenium grid execute:
+ 
+  ```
+  python -m my_app_tests.ssh_module
+  ```
+ 
+ To verify that grid with node has been launched successfully open `http://192.168.33.10:4444/grid/console` in browser
