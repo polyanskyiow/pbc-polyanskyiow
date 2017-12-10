@@ -1,10 +1,4 @@
-def decorator(func):
-    def wrapper(*args):
-        for a in args:
-            print 'arg: "{}"'.format(a)
-        rs = func(*args)
-        return rs
-    return wrapper
+from my_app_tests.decorators import decorator
 
 @decorator
 def fib(n):

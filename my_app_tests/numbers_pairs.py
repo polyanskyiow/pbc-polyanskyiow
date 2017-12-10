@@ -1,10 +1,4 @@
-def decorator(func):
-    def wrapper(*args):
-        for a in args:
-            print 'arg: "{}"'.format( a)
-        rs = func(*args)
-        return rs
-    return wrapper
+from my_app_tests.decorators import decorator
 
 @decorator
 def print_pairs(*args):
@@ -22,4 +16,4 @@ def print_pairs(*args):
     return result
 
 #Example
-#print(print_pairs(2,7,5,3,1,5,9,8,1))
+# print(print_pairs(2,7,5,3,1,5,9,8,1))
