@@ -1,6 +1,6 @@
-from my_app_tests.decorators import decorator
+from pbc.func_decorators import log
 
-@decorator
+@log
 def print_pairs(*args):
     l=0
     m=l+1

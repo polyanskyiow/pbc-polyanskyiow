@@ -1,6 +1,6 @@
-from my_app_tests.decorators import decorator
+from pbc.func_decorators import log
 
-@decorator
+@log
 def fib(n):
     result = list()
     if(type(n) is int and n>=0):

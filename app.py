@@ -1,6 +1,6 @@
 import argparse
-from my_app_tests.fibonacci import fib
-from my_app_tests.numbers_pairs import print_pairs
+from pbc.tools.fibonacci import fib
+from pbc.tools.numbers import print_pairs
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="App can return a Fibonacci sequence with given length "

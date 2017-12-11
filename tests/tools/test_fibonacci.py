@@ -1,5 +1,5 @@
 import pytest
-from my_app_tests.fibonacci import fib
+from pbc.tools.fibonacci import fib
 
 @pytest.mark.fibonacci
 def test_output_type():
