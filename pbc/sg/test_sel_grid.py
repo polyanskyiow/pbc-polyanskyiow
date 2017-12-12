@@ -1,7 +1,7 @@
 import pytest
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
+
 from pbc.sg.sg import StartGrid, Grid
+from pbc.sg.page import GridPage
 
 # Initial test
 @pytest.mark.selenium
@@ -24,10 +24,8 @@ def test_sg_sm2(ssh_client):
 
 # Verify selenium maxSession count
 @pytest.mark.selenium
-def test_check_grid():
-    driver = webdriver.Firefox()
-    driver.get("http://192.168.33.10:4444/grid/console")
-    assert "Grid Console" in driver.title
-    elem = driver.find_elements_by_xpath("//div[@class='content_detail']//img[contains(@title,'firefox')]")
-    assert 5 == len(elem)
-    driver.close()
+def test_check_grid(web_driver):
+    grid_page = GridPage(web_driver)
+    assert True is grid_page.is_title_matches()
+    assert True is grid_page.is_node_count_matches()
+
