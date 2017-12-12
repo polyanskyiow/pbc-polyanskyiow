@@ -121,3 +121,13 @@ Result:
     ```
     pytest -v -s -m selenium
     ```
+##  **Home work 7**
+- Selenium grid setup configuration has been updated
+- Added test for testing grid config `pbc.sg.test_sel_grid.test_check_grid`.
+- Added clean up section to `pbc.sg.conftest`
+- Vagrant file was updated
+
+  To run this tests execute:
+  ```
+  pytest -v -s -m selenium
+  ```

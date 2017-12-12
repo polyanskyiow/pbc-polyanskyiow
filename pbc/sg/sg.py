@@ -21,9 +21,15 @@ class Grid(BaseGrid):
     def __init__(self, ssh_client):
         self._client = ssh_client
 
-    def is_downloaded(self):
+    def is_selenium_downloaded(self):
         result = False
         if 'True' in self._client.execute('[ -f selenium-server-standalone-3.8.0.jar ] && echo \'True\''):
+             result = True
+        return result
+
+    def is_conf_file_downloaded(self):
+        result = False
+        if 'True' in self._client.execute('[ -f sg-node.json ] && echo \'True\''):
              result = True
         return result
 
@@ -58,14 +64,27 @@ class Grid(BaseGrid):
         return result
 
     def download(self):
-        if(self.is_downloaded()):
+        if(self.is_selenium_downloaded()):
             print 'Selenium has been already downloaded'
         else:
             print 'Starting selenium downloading '
             self._client.execute('wget -O selenium-server-standalone-3.8.0.jar https://goo.gl/SVuU9X ')
             counter = 0
             while ( self._client.execute('pgrep wget | wc -l') == 1): #check if wget process finished
-                time.sleep(3)
+                time.sleep(1)
+                if (counter > 15):
+                    raise Exception('File has not been fully loaded')
+                    break
+                counter += 1
+
+        if (self.is_conf_file_downloaded()):
+            print 'Configuration file has been already downloaded'
+        else:
+            print 'Starting configuration file downloading '
+            self._client.execute('wget -O sg-node.json https://gist.github.com/extsoft/aed4cb6e0b1ae3cd1d38cafffdd79310/raw/ ')
+            counter = 0
+            while (self._client.execute('pgrep wget | wc -l') == 1):  # check if wget process finished
+                time.sleep(1)
                 if (counter > 15):
                     raise Exception('File has not been fully loaded')
                     break
@@ -90,7 +109,7 @@ class Grid(BaseGrid):
             print 'Selenium node is already running'
         else:
             print 'Adding selenium node '
-            self._client.execute('java -jar selenium-server-standalone-3.8.0.jar -role node  -hub http://localhost:4444/grid/register >> log.txt 2>&1 &')
+            self._client.execute('java -jar selenium-server-standalone-3.8.0.jar -role node -nodeConfig sg-node.json >> log.txt 2>&1 &')
             counter = 0
             while (not self.is_node_running()):
                 time.sleep(1)
