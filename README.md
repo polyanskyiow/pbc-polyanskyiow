@@ -3,7 +3,7 @@
 # Python Boot Camp
 _____________________________________
 
-##  **hm1 - Home work 1**
+##  **Home work 1**
 
 `my_app_tests.fibonacci.py` Function `fib(n)` returns list of `n` fibonacci numbers.
 
@@ -14,7 +14,7 @@ _____________________________________
     `ssh vagrant@192.168.33.10`
     `password: vagrant`
  
- ##  **hm2 - Home work 2**
+ ##  **Home work 2**
   **Setup environment**
  1. Install `pip` https://pip.pypa.io/en/stable/installing/ , `pip` is already installed if you're using Python 2 >=2.7.9 or Python 3 >=3.4
      ```
@@ -46,7 +46,7 @@ _____________________________________
 * for fibonacci tests run `pytest test_fibonacci.py`
 * for numbers tests run `pytest test_numbers_pairs.py`
 
- ##  **hm3 - Home work 3**
+ ##  **Home work 3**
  
  **Added decorators for:**
 
@@ -78,14 +78,46 @@ Result:
    set([(2, 8), (5, 5), (1, 9), (3, 7)])
 
     ```
- ##  **hm5 - Home work 5**
+ ##  **Home work 5**
  
  **Added `ssh_module.py` for launching Selenium grid with node, via ssh, on vagrant VM:**
  
  To run selenium grid execute:
- 
   ```
   python -m my_app_tests.ssh_module
   ```
  
  To verify that grid with node has been launched successfully open `http://192.168.33.10:4444/grid/console` in browser
+ 
+  ##  **Home work 6**
+- Project structure has been changed to:
+    ```
+    .
+    ├── Vagrantfile
+    ├── app.py
+    ├── pbc
+    │   ├── __init__.py
+    │   ├── func_decorators.py
+    │   ├── sg
+    │   │   ├── __init__.py
+    │   │   ├── conftest.py
+    │   │   ├── connections.py
+    │   │   ├── sg.py
+    │   │   └── test_sel_grid.py
+    │   └── tools
+    │       ├── __init__.py
+    │       ├── fibonacci.py
+    │       └── numbers.py
+    ├── requirements.txt
+    └── tests
+        ├── __init__.py
+        └── tools
+            ├── __init__.py
+            ├── test_fibonacci.py
+            └── test_numbers.py
+     ```
+
+- Added tests for setup selenium on the vagrant VM. To run this tests execute:
+    ```
+    pytest -v -s -m selenium
+    ```

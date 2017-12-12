@@ -21,41 +21,91 @@ class Grid(BaseGrid):
     def __init__(self, ssh_client):
         self._client = ssh_client
 
+    def is_downloaded(self):
+        result = False
+        if 'True' in self._client.execute('[ -f selenium-server-standalone-3.8.0.jar ] && echo \'True\''):
+             result = True
+        return result
+
+    def is_hub_running(self):
+        result = False
+        counter = 0
+        while(True):
+            print 'Checking if the hub is running'
+            if '200' in self._client.execute('curl -o -I -s -w "%{http_code}\\n" http://localhost:4444/hub'):
+                result = True
+                break
+            else:
+                time.sleep(1)
+            if(counter > 7):
+                break
+            counter += 1
+        return result
+
+    def is_node_running(self):
+        result = False
+        counter = 0
+        while(True):
+            print 'Checking if the node is running'
+            if '200' in self._client.execute('curl -o -I -s -w "%{http_code}\\n" http://localhost:5555/hub/sessions'):
+                result = True
+                break
+            else:
+                time.sleep(1)
+            if(counter > 7):
+                break
+            counter += 1
+        return result
+
     def download(self):
-        print 'Download'
-        self._client.execute('[ -f selenium-server-standalone-3.8.0.jar ] && "Selenium package already exists" || wget -O selenium-server-standalone-3.8.0.jar https://goo.gl/SVuU9X ')
-        time.sleep(10)
-        # simple loop
-        # count = 0
-        # while count < 100:
-            # if loaded:
-            #   return
-            # time.sleep(0,5)
-            # count +=1
-        # raise Exception('File was not loaded')
+        if(self.is_downloaded()):
+            print 'Selenium has been already downloaded'
+        else:
+            print 'Starting selenium downloading '
+            self._client.execute('wget -O selenium-server-standalone-3.8.0.jar https://goo.gl/SVuU9X ')
+            counter = 0
+            while ( self._client.execute('pgrep wget | wc -l') == 1): #check if wget process finished
+                time.sleep(3)
+                if (counter > 15):
+                    raise Exception('File has not been fully loaded')
+                    break
+                counter += 1
 
     def start_hub(self):
-        print 'Start hub'
-        time.sleep(7)
-        self._client.execute('java -jar selenium-server-standalone-3.8.0.jar -role hub >> log.txt 2>&1 &')
+        if(self.is_hub_running()):
+            print 'Selenium hub is already running'
+        else:
+            print 'Starting selenium hub '
+            self._client.execute('java -jar selenium-server-standalone-3.8.0.jar -role hub >> log.txt 2>&1 &')
+            counter = 0
+            while (not self.is_hub_running()):
+                time.sleep(1)
+                if (counter > 7):
+                    raise Exception('Selenium hub has not been started')
+                    break
+                counter += 1
 
     def add_node(self):
-        print 'Add node'
-        time.sleep(7)
-        self._client.execute(
-            'java -jar selenium-server-standalone-3.8.0.jar -role node  -hub http://localhost:4444/grid/register >> log.txt 2>&1 &')
+        if (self.is_node_running()):
+            print 'Selenium node is already running'
+        else:
+            print 'Adding selenium node '
+            self._client.execute('java -jar selenium-server-standalone-3.8.0.jar -role node  -hub http://localhost:4444/grid/register >> log.txt 2>&1 &')
+            counter = 0
+            while (not self.is_node_running()):
+                time.sleep(1)
+                if (counter > 7):
+                    raise Exception('Selenium node has not been added')
+                    break
+                counter += 1
 
-
-def is_installed():
-    return True
 
 class StartGrid(BaseGrid):
     def __init__(self, grid):
         self._g = grid
 
     def download(self):
-        # if not is_installed():
-            self._g.download()
+        self._g.download()
 
     def start_hub(self):
         self._g.start_hub()
