@@ -15,9 +15,8 @@ def ssh_client():
 
     connection.close()
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="function")
 def web_driver():
     driver = WebDriver()
-    driver.open_page('http://192.168.33.10:4444/grid/console')
     yield driver
     driver.close()

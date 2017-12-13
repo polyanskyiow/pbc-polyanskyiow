@@ -1,7 +1,7 @@
 import pytest
 
 from pbc.sg.sg import StartGrid, Grid
-from pbc.sg.page import GridPage
+from pbc.sg.page import GridPage, PyconPage
 
 # Initial test
 @pytest.mark.selenium
@@ -26,6 +26,14 @@ def test_sg_sm2(ssh_client):
 @pytest.mark.selenium
 def test_check_grid(web_driver):
     grid_page = GridPage(web_driver)
+    grid_page.open()
     assert True is grid_page.is_title_matches()
-    assert True is grid_page.is_node_count_matches()
+    #assert True is grid_page.is_node_count_matches()
+
+
+@pytest.mark.selenium
+def test_pycon(web_driver):
+    pycon_page = PyconPage(web_driver)
+    pycon_page.open()
+
 

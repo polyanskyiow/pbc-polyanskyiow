@@ -22,16 +22,10 @@ class Grid(BaseGrid):
         self._client = ssh_client
 
     def is_selenium_downloaded(self):
-        result = False
-        if 'True' in self._client.execute('[ -f selenium-server-standalone-3.8.0.jar ] && echo \'True\''):
-             result = True
-        return result
+        return self._client.execute('[ -f selenium-server-standalone-3.8.0.jar ] && echo \'True\'')
 
     def is_conf_file_downloaded(self):
-        result = False
-        if 'True' in self._client.execute('[ -f sg-node.json ] && echo \'True\''):
-             result = True
-        return result
+        return self._client.execute('[ -f sg-node.json ] && echo \'True\'')
 
     def is_hub_running(self):
         result = False
