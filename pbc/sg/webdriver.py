@@ -1,5 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.common.keys import Keys
+
 
 class WebDriver:
 
@@ -21,5 +23,14 @@ class WebDriver:
     def close(self):
         self._driver.close()
 
+    def screenshot(self, name):
+        self._driver.save_screenshot(name)
+
+    def search_for(self, search_str):
+        elem = self._driver.find_element_by_name('q')
+        elem.clear()
+        elem.send_keys(search_str)
+        elem.send_keys(Keys.ENTER)
+
     def elements_count(self):
-        return len(self._driver.find_elements_by_xpath("//div[@class='content_detail']//img[contains(@title,'firefox')]"))
+        return len( self._driver.find_elements_by_xpath("//div[@class='content_detail']//img[contains(@src,'firefox')]") )
